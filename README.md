@@ -258,3 +258,6 @@ Follow these steps to set up this application locally. Make sure to have [Docker
   ```bash
   curl -X GET "http://localhost:8080/cats/favorite?user_id=1&page=1&limit=10"
   ```
+
+## Database Design
+<img src="./documents/database.png"/>
