@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'github-markdown-css/github-markdown.css';
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --sidebar: 220, 14%, 96%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 0, 0%, 80%;
+    --secondary: 0, 0%, 80%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --border: 0, 5%, 9%;
+    --bl:222.2 47.4% 11.2%;
+  }
+
+  .dark {
+    --background: #343541;
+    --sidebar: 240 6% 5%;
+    --foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 217.2 32.6% 17.5%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --border: 0, 5%, 9%;
+    --input: 0, 0%, 100%;
+    --bl: #343541;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground leading-relaxed;
+  }
+}
