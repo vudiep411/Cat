@@ -1,6 +1,9 @@
 # Fun Fullstack Cat Application
 This is a fun Cat application that interacts with TheCatAPI to retrieve information about 100 random cats, including their images, and allows users to perform create, read, update, and delete (CRUD) operations on this data within a local application.
 
+https://github.com/user-attachments/assets/95728e08-b567-4f8f-a3ac-5e7d0ada1255
+
+
 ## Installation
 Follow these steps to set up this application locally. Make sure to have [Docker](https://www.docker.com/) installed and set up environment variable in `.env` file similar to [.env.example](.env.example)
 
