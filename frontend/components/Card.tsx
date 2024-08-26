@@ -2,6 +2,7 @@ import { useChatStore } from '@/store/store';
 import React, { useState } from 'react'
 import { FaStar } from 'react-icons/fa';
 import { AiFillEdit } from "react-icons/ai";
+import Image from 'next/image';
 
 interface Cat {
   adaptability: number;
@@ -46,7 +47,15 @@ const Card: React.FC<CatCardProps> = ({ cat }) => {
   return (
     <div className="rounded-xl shadow-xl border">
       <div className='relative mx-auto rounded overflow-hidden'>
-        <img src={cat.image_url} alt={cat.breed_name} className="w-full h-64 object-scale-down mt-2" />
+        <div className="relative w-full h-64 mt-2">
+          <Image 
+            src={cat.image_url}
+            alt={cat.breed_name}
+            layout="fill"
+            objectFit="contain"
+            className="absolute top-0 left-0"
+          />
+        </div>
         <div 
           onClick={() => addOrRemoveFavorite(cat.id, cat.favorite, {
             description: cat.description,

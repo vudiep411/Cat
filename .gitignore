@@ -60,22 +60,9 @@ dmypy.json
 # VSCode
 .vscode/
 
-# Logs and databases
-*.log
-*.sqlite3
-
-# Unit test / coverage reports
-coverage/
-*.cover
-.hypothesis/
 
 # macOS
 .DS_Store
-
-# Docker
-**/Dockerfile
-docker-compose.yml
-.dockerignore
 
 # Environment variables
 .env

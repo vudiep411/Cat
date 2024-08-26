@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: my-postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: mydatabase
+    volumes:
+      - my_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+
+  backend:
+    build:
+      context: ./backend
+    container_name: flask-backend
+    environment:
+      DB_NAME: mydatabase
+      DB_USER: admin
+      DB_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  db-init:
+    build:
+      context: ./postgres  # Path to the Dockerfile for the db-init service
+    container_name: db-init
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Optionally, set a delay to ensure `postgres` is fully ready
+    entrypoint: ["python", "/scripts/dbinit.py"]
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: nextjs-frontend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend
+      - db-init
+
+volumes:
+  my_pgdata:

@@ -52,9 +52,7 @@ export default function Home() {
             <SearchBar/>
             <div className="flex flex-col p-4 space-y-4 h-screen max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 gap-2 pb-2">
                 {cats.map((cat: any) => (
-                    <div className="">
                     <Card key={cat.id} cat={cat} />  
-                    </div>
                     ))
                 }
                 <div className="flex justify-between mt-4">

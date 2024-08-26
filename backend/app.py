@@ -15,10 +15,18 @@ swagger = Swagger(app, template=get_swagger_config())
 DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
+DEV = os.environ.get('DEV')
 
 def get_db_connection():
-    connection = psycopg2.connect(database=DB_NAME, user=DB_USER, password=DB_PASSWORD, host="localhost", port=5438)
+    connection = psycopg2.connect(
+        database=DB_NAME, 
+        user=DB_USER, 
+        password=DB_PASSWORD, 
+        host="localhost" if DEV == "1" else "postgres", 
+        port=5438 if DEV == "1" else 5432
+    )
     return connection
+
 
 @app.route('/cats', methods=['GET'])
 def get_all_cats():
@@ -111,7 +119,6 @@ def get_all_cats():
         'total_cats': total_cats,
         'cats': cat_list
     })
-
 
 
 @app.route('/cats', methods=['POST'])
@@ -280,6 +287,7 @@ def update_breed(id):
 
     return jsonify({'message': 'Breed updated successfully'}), 200
 
+
 @app.route('/cats/favorite', methods=['GET'])
 def get_favorite_cats():
     """Retrieve a user's favorite cat images."""
@@ -344,4 +352,8 @@ def get_favorite_cats():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    if DEV == "1":
+        app.run(debug=True, port=8080)
+    else:
+        from waitress import serve
+        serve(app, host="0.0.0.0", port=8080)

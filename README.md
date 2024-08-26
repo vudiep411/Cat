@@ -7,6 +7,14 @@ https://github.com/user-attachments/assets/95728e08-b567-4f8f-a3ac-5e7d0ada1255
 ## Installation
 Follow these steps to set up this application locally. Make sure to have [Docker](https://www.docker.com/) installed and set up environment variable in `.env` file similar to [.env.example](.env.example)
 
+### Docker Set up
+1. Place [.env](.env.example) in frontend, backend and postgres directory
+2. Run docker command
+    ```
+    docker-compose up --build
+    ```
+3. Application is now running at http://localhost:5000/
+
 ### Set up Postgres Database
 1. Go into postgres directory
     ```
@@ -40,7 +48,7 @@ Follow these steps to set up this application locally. Make sure to have [Docker
 ### Set up front end
 1. CD into frontend
    ```
-   cd fronend
+   cd frontend
    ```
 2. Install dependencies
    ```
