@@ -12,36 +12,11 @@ venv/
 ENV/
 VENV/
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
 
 # Flask specific
 instance/
 .webassets-cache
 
-# Pytest
-.cache/
-.tox/
-.coverage
-htmlcov/
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -76,10 +51,3 @@ yarn-error.log*
 # Tailwind CSS cache
 .tailwindcss/
 
-# Temporary files
-*.tmp
-*.temp
-*.swp
-*.swo
-*.bak
-*~
