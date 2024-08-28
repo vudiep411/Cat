@@ -24,6 +24,7 @@ interface Cat {
   temperament: string;
   weight: string;
   favorite: boolean;
+  user_preference_id: number;
 }
 
 interface CatCardProps {
@@ -41,7 +42,7 @@ const Card: React.FC<CatCardProps> = ({ cat }) => {
     console.log(cat.id, breedName, description)
     cat.description = description
     cat.breed_name = breedName
-    editPreference(cat.id, description, breedName)
+    editPreference(cat.user_preference_id, description, breedName)
   }
 
   return (
@@ -57,7 +58,7 @@ const Card: React.FC<CatCardProps> = ({ cat }) => {
           />
         </div>
         <div 
-          onClick={() => addOrRemoveFavorite(cat.id, cat.favorite, {
+          onClick={() => addOrRemoveFavorite(cat.user_preference_id, cat.favorite, {
             description: cat.description,
             image_id: cat.id, 
             name: cat.breed_name

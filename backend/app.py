@@ -46,7 +46,7 @@ def get_all_cats():
     base_query = """
         SELECT ci.id, ci.image_url, b.name AS breed_name, b.weight, b.temperament, b.origin, b.description, b.life_span, 
                b.indoor, b.adaptability, b.affection_level, b.child_friendly, b.dog_friendly, b.energy_level, 
-               b.grooming, b.intelligence, b.social_needs, b.stranger_friendly,
+               b.grooming, b.intelligence, b.social_needs, b.stranger_friendly, up.id AS user_preference_id,
                CASE WHEN up.image_id IS NOT NULL THEN TRUE ELSE FALSE END AS favorite
         FROM cat_images ci
         JOIN breeds b ON ci.breed_id = b.id
@@ -170,23 +170,17 @@ def add_cat_to_favorites():
     return jsonify({'message': message})
 
 
-
-@app.route('/cats', methods=['DELETE'])
-def delete_favorite_cat():
-    """Delete a cat from user favorites by user_id and image_id."""
-    user_id = request.args.get('user_id')
-    image_id = request.args.get('image_id')
-
-    if not user_id or not image_id:
-        return jsonify({"error": "User ID and Image ID are required"}), 400
-
+@app.route('/cats/<int:id>', methods=['DELETE'])
+def delete_favorite_cat(id):
+    """Delete a cat from user favorites by its ID."""
+    
     conn = get_db_connection()
     cursor = conn.cursor()
 
     # Check if the favorite exists
     cursor.execute("""
-        SELECT * FROM user_preferences WHERE user_id = %s AND image_id = %s
-    """, (user_id, image_id))
+        SELECT * FROM user_preferences WHERE id = %s
+    """, (id,))
     favorite = cursor.fetchone()
 
     if favorite is None:
@@ -196,8 +190,8 @@ def delete_favorite_cat():
 
     # Delete the favorite
     cursor.execute("""
-        DELETE FROM user_preferences WHERE user_id = %s AND image_id = %s
-    """, (user_id, image_id))
+        DELETE FROM user_preferences WHERE id = %s
+    """, (id,))
     conn.commit()
 
     cursor.close()
@@ -303,9 +297,9 @@ def get_favorite_cats():
 
     # Base query for favorites
     base_query = """
-        SELECT up.id, ci.image_url, up.name AS breed_name, b.weight, b.temperament, b.origin, up.description, b.life_span, 
+        SELECT ci.id, ci.image_url, up.name AS breed_name, b.weight, b.temperament, b.origin, up.description, b.life_span, 
                b.indoor, b.adaptability, b.affection_level, b.child_friendly, b.dog_friendly, b.energy_level, 
-               b.grooming, b.intelligence, b.social_needs, b.stranger_friendly,
+               b.grooming, b.intelligence, b.social_needs, b.stranger_friendly, up.id AS user_preference_id,
                TRUE AS favorite
         FROM user_preferences up
         JOIN cat_images ci ON up.image_id = ci.id
@@ -338,7 +332,6 @@ def get_favorite_cats():
 
     col_names = [desc[0] for desc in cursor.description]
     favorite_list = [dict(zip(col_names, favorite)) for favorite in favorites]
-
     cursor.close()
     conn.close()
 

@@ -75,6 +75,14 @@ Follow these steps to set up this application locally. Make sure to have [Docker
   
 * Description: Retrieves paginated cat information from the database with optional filters for breed and search queries.
 
+* Query Params:
+  
+    *  `page`: int - Page number
+    *  `limit`: int - How many per page
+    *  `breed`: string - Filter by breed
+    *  `user_id`: int - user's id
+    *  `query`: string - Query string to search
+
 * Sample Response:
 
     ```json
@@ -102,7 +110,8 @@ Follow these steps to set up this application locally. Make sure to have [Docker
             "intelligence": 3,
             "social_needs": 3,
             "stranger_friendly": 2,
-            "favorite": true
+            "favorite": true,
+            "user_preference_id": 5,
             }
         ]
     }
@@ -135,13 +144,10 @@ Follow these steps to set up this application locally. Make sure to have [Docker
   ```
 
 ### Delete Favorite Cat
-* Endpoint: DELETE /cats
+* Endpoint: DELETE /cats/`<id:int>`
 
 * Delete a cat from the user's favorites.
 
-* Query Parameters:
-    * user_id (required): The user's ID.
-    * image_id (required): The image ID of the cat.
 * Sample Response:
     ```json
     {
@@ -181,7 +187,8 @@ Follow these steps to set up this application locally. Make sure to have [Docker
             "grooming": 5,
             "intelligence": 3,
             "social_needs": 3,
-            "stranger_friendly": 2
+            "stranger_friendly": 2,
+            "user_preference_id": 5,
         }
     }
     ```
@@ -258,6 +265,7 @@ Follow these steps to set up this application locally. Make sure to have [Docker
         "intelligence": 3,
         "social_needs": 3,
         "stranger_friendly": 2,
+        "user_preference_id": 5,
         "favorite": true
         }]
     }

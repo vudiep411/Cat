@@ -116,65 +116,6 @@ def get_swagger_config():
                         }
                     }
                 },
-                'delete': {
-                    'tags': ['Cats'],
-                    'summary': 'Delete a cat from favorites',
-                    'description': 'This endpoint removes a cat from the user\'s favorites by the favorite ID.',
-                    'parameters': [
-                        {
-                            'name': 'user_id',
-                            'in': 'query',
-                            'type': 'integer',
-                            'required': True,
-                            'description': 'The user ID associated with the favorite cat'
-                        },
-                        {
-                            'name': 'image_id',
-                            'in': 'query',
-                            'type': 'string',
-                            'required': True,
-                            'description': 'The image ID associated with the favorite cat'
-                        }
-                    ],
-                    'responses': {
-                        200: {
-                            'description': 'Favorite cat successfully removed',
-                            'schema': {
-                                'type': 'object',
-                                'properties': {
-                                    'message': {
-                                        'type': 'string',
-                                        'example': 'Favorite cat successfully removed'
-                                    }
-                                }
-                            }
-                        },
-                        400: {
-                            'description': 'Invalid ID provided',
-                            'schema': {
-                                'type': 'object',
-                                'properties': {
-                                    'error': {
-                                        'type': 'string',
-                                        'example': 'Invalid favorite ID'
-                                    }
-                                }
-                            }
-                        },
-                        404: {
-                            'description': 'Favorite cat not found',
-                            'schema': {
-                                'type': 'object',
-                                'properties': {
-                                    'error': {
-                                        'type': 'string',
-                                        'example': 'Favorite cat not found'
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             },
             '/cats/{id}': {
                 'get': {
@@ -288,7 +229,59 @@ def get_swagger_config():
                             }
                         }
                     }
-                }
+                },
+                'delete': {
+                    'tags': ['Cats'],
+                    'summary': 'Delete a cat from favorites',
+                    'description': 'This endpoint removes a cat from the user\'s favorites by the favorite ID.',
+                    'parameters': [
+                            {
+                                'name': 'id',
+                                'in': 'path',
+                                'type': 'string',
+                                'required': True,
+                                'description': 'The ID of the cat to retrieve'
+                            }
+                        ],
+                    'responses': {
+                        200: {
+                            'description': 'Favorite cat successfully removed',
+                            'schema': {
+                                'type': 'object',
+                                'properties': {
+                                    'message': {
+                                        'type': 'string',
+                                        'example': 'Favorite cat successfully removed'
+                                    }
+                                }
+                            }
+                        },
+                        400: {
+                            'description': 'Invalid ID provided',
+                            'schema': {
+                                'type': 'object',
+                                'properties': {
+                                    'error': {
+                                        'type': 'string',
+                                        'example': 'Invalid favorite ID'
+                                    }
+                                }
+                            }
+                        },
+                        404: {
+                            'description': 'Favorite cat not found',
+                            'schema': {
+                                'type': 'object',
+                                'properties': {
+                                    'error': {
+                                        'type': 'string',
+                                        'example': 'Favorite cat not found'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
             },
             '/cats/favorite': {
                 'get': {

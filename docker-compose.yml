@@ -13,7 +13,7 @@ services:
     ports:
       - "5438:5432"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "admin"]
+      test: ["CMD", "pg_isready", "-U", "admin", "-d", "mydatabase"]
       interval: 10s
       retries: 5
       start_period: 30s
