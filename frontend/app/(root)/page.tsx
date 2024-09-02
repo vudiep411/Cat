@@ -13,9 +13,11 @@ export default function Home() {
     const setPage = useChatStore((state: any) => state.setPage)
     const totalPage = useChatStore((state: any) => state.totalPage);
     const isLoading = useChatStore((state: any) => state.isLoading);
+    const activeTab = useChatStore((state: any) => state.activeTab);
     const query = useChatStore((state: any) => state.query);
     const selectedBreed = useChatStore((state: any) => state.selectedBreed);
     const fetchQuery = useChatStore((state: any) => state.fetchQuery);
+    const fetchFavoriteCats = useChatStore((state: any) => state.fetchFavoriteCats)
     console.log(cats)
 
     useEffect(() => {
@@ -26,6 +28,9 @@ export default function Home() {
             setPage(page + 1);
             if(query !== "" || selectedBreed !== "") {
                 fetchQuery(query, selectedBreed)
+            }
+            else if(activeTab == "Favorites") {
+                fetchFavoriteCats()
             }
             else {
                 fetchAllCats()
@@ -39,6 +44,9 @@ export default function Home() {
             setPage(page - 1);
             if(query !== "" || selectedBreed !== "") {
                 fetchQuery(query, selectedBreed)
+            }
+            else if(activeTab == "Favorites") {
+                fetchFavoriteCats()
             }
             else {
                 fetchAllCats()

@@ -54,7 +54,7 @@ export const useChatStore = create((set: any) => ({
     fetchFavoriteCats: async () => {
         set({ isLoading: true });
         try {
-            const { data } = await axios.get(`${URL}/cats/favorite?user_id=${useChatStore.getState().userId}`);
+            const { data } = await axios.get(`${URL}/cats/favorite?user_id=${useChatStore.getState().userId}&page=${useChatStore.getState().page}`);
             console.log(data)
             set({ page: data.current_page, totalPage: data.total_pages, cats: data.cats, isLoading: false });
         } catch (error) {
