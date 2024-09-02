@@ -58,7 +58,7 @@ const Card: React.FC<CatCardProps> = ({ cat }) => {
           />
         </div>
         <div 
-          onClick={() => addOrRemoveFavorite(cat.user_preference_id, cat.favorite, {
+          onClick={() => addOrRemoveFavorite(cat.id, cat.user_preference_id, cat.favorite, {
             description: cat.description,
             image_id: cat.id, 
             name: cat.breed_name

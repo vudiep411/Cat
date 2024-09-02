@@ -30,17 +30,23 @@ export const useChatStore = create((set: any) => ({
             set({ isLoading: false });
         }
     },
-    addOrRemoveFavorite: async (id: number, favorite: boolean, body: any) => {
+    addOrRemoveFavorite: async (id: number, user_preference_id: number, favorite: boolean, body: any) => {
         try {
-            set((state: any) => ({ cats: state.cats.map((cat: any) => cat.user_preference_id === id ? { ...cat, favorite: !cat.favorite } : cat) }));
-            console.log(body)
             if(!favorite) {
                 const { data } = await axios.post(`${URL}/cats`, { user_id: useChatStore.getState().userId, ...body });
+                set((state: any) => ({ cats: state.cats.map((cat: any) => {
+                    if(cat.id === id) {
+                        return { ...cat, user_preference_id: data.id, favorite: !cat.favorite }
+                    } else {
+                        return cat
+                    }
+                }) }));
             } else {
-                console.log(id)
-                const { data } = await axios.delete(`${URL}/cats/${id}`);
-                console.log(data)
+                console.log(user_preference_id)
+                set((state: any) => ({ cats: state.cats.map((cat: any) => cat.id === id ? { ...cat, favorite: !cat.favorite } : cat) }));
+                const { data } = await axios.delete(`${URL}/cats/${user_preference_id}`);
             }
+            
         } catch (error) {
             console.log(error);
         }

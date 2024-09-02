@@ -157,7 +157,9 @@ def add_cat_to_favorites():
         cursor.execute("""
             INSERT INTO user_preferences (user_id, image_id, name, description)
             VALUES (%s, %s, %s, %s)
+            RETURNING id
             """, (user_id, image_id, name, description))
+        new_id = cursor.fetchone()[0]
         conn.commit()
         message = 'Cat added to favorites successfully'
     except Exception as e:
@@ -167,7 +169,7 @@ def add_cat_to_favorites():
         cursor.close()
         conn.close()
 
-    return jsonify({'message': message})
+    return jsonify({'message': message, 'id': new_id}), 201
 
 
 @app.route('/cats/<int:id>', methods=['DELETE'])
@@ -197,7 +199,10 @@ def delete_favorite_cat(id):
     cursor.close()
     conn.close()
 
-    return jsonify({"message": "Favorite cat successfully removed"}), 200
+    return jsonify({
+        "message": "Favorite cat successfully removed",
+        "id": id
+    }), 200
 
 
 @app.route('/cats/<string:id>', methods=['GET'])
