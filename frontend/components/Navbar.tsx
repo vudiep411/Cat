@@ -10,6 +10,8 @@ const Navbar = () => {
   const fetchAllCats = useChatStore((state: any) => state.fetchAllCats)
   const setPage = useChatStore((state: any) => state.setPage)
   const setTotalPage = useChatStore((state: any) => state.setTotalPage)
+  const setQuery = useChatStore((state: any) => state.setQuery)
+  const setSelectedBreed = useChatStore((state: any) => state.setSelectedBreed)
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -20,6 +22,8 @@ const Navbar = () => {
     setPage(1)
     setTotalPage(1)
     if (tabName === 'Favorites') {
+      setQuery('')
+      setSelectedBreed('')
       fetchFavoriteCats()
     } else {
       fetchAllCats()

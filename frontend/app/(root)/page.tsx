@@ -26,7 +26,7 @@ export default function Home() {
     const handleNextPage = () => {
         if (page < totalPage) {
             setPage(page + 1);
-            if(query !== "" || selectedBreed !== "") {
+            if((query !== "" || selectedBreed !== "") && activeTab == "Features") {
                 fetchQuery(query, selectedBreed)
             }
             else if(activeTab == "Favorites") {
@@ -42,7 +42,7 @@ export default function Home() {
     const handlePreviousPage = () => {
         if (page > 1) {
             setPage(page - 1);
-            if(query !== "" || selectedBreed !== "") {
+            if((query !== "" || selectedBreed !== "") && activeTab == "Features") {
                 fetchQuery(query, selectedBreed)
             }
             else if(activeTab == "Favorites") {
